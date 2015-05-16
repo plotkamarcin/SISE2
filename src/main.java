@@ -7,7 +7,8 @@ public class main {
 	
 	public static void main(String[] args) throws Exception {
 NeuralNetSolver solver = new NeuralNetSolver();
-solver.train(solver.net);
+solver.train();
+solver.calculate();
 	}
 
 }

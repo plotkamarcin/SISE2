@@ -1,14 +1,16 @@
+import java.util.Random;
 import java.util.Vector;
 
 public class Neuron {
 
 	private Integer howManyInputs = 2;
 
-	public Vector<Double> inputs = new Vector<Double>();
-	public Vector<Double> weights= new Vector<Double>();
+	public Vector<Double> inputs = new Vector<Double>(2);
+	public Vector<Double> weights= new Vector<Double>(2);
 	Double momentum = 0.00;// modyfikuje wagi aby nie wpaœæ w nieprawid³owe
 							// minimum
 	Double learningFactor = 0.001;
+	Random random = new Random();
 
 	public Neuron(Integer howManyInputs) {
 		inputs = new Vector<Double>(howManyInputs);
@@ -31,24 +33,21 @@ public class Neuron {
 	}
 
 	public void setInputs(Vector<Double> inputs) throws Exception {
-		if (inputs.size() != this.inputs.size()) {
-			throw new Exception("niezgodnosc wektorow wejsc");
-		}
+
 		this.inputs = inputs;
 	}
 	public void setWeights(Vector<Double>weights) throws Exception{
-		if (weights.size() != this.weights.size()) {
-			throw new Exception("niezgodnosc wektorow wag");
-		}	
+
 		this.weights = weights;
 	}
 	public Double derivative(){
 		return (1 - activationFunction()*activationFunction());
 	}
 	public void generateWeights(){
+		Double max = 32767.0;
 		for (int i = 0; i < howManyInputs; i++)
-		{
-			inputs.set(i, (Math.random()/(0x7fff-0.5))/4.0);
+		{	
+			weights.add((random.nextDouble()/((max-0.5))/4.0));
 		}
 	}
 	public Double calculateOutputError(Double value){

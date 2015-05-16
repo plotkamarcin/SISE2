@@ -12,18 +12,25 @@ public class NeuralNetwork {
 		hiddenLayer = new Vector<Neuron>(howManyHidden);
 		outputNeuron = new Neuron(howManyHidden);
 		this.howManyHidden = howManyHidden;
-	}
-
-	public void loadWeights() {
-		throw new UnsupportedOperationException("not implemented yet!");
+		for (int i=0;i<howManyHidden;i++){
+			hiddenLayer.add(new Neuron(2));
+		}
 	}
 
 	public void showWeights() {
-		throw new UnsupportedOperationException("not implemented yet!");
-	}
+		System.out.println("wagi w warstwie");
+		for (Neuron x : hiddenLayer)
+		{
+			System.out.println(x.weights.get(0));
+			System.out.println(x.weights.get(1));
 
-	public void saveWeights() {
-		throw new UnsupportedOperationException("not implemented yet!");
+		}
+		System.out.println();
+		System.out.println("wagi wyjsciowe neuronu");
+		for (int i = 0; i < howManyHidden; i++)
+		{
+			System.out.println(outputNeuron.weights.get(i));
+		}
 	}
 
 	public Double calculate(Double input, Double expectedOutput) throws Exception{
@@ -55,7 +62,7 @@ public class NeuralNetwork {
 		{
 			hiddenLayer.get(i).correctHiddenWeightsError(outputWeightsCorrection);
 		}
-		System.out.println(expectedOutput-output);
+		System.out.println(String.format( "%.7f", expectedOutput-output ));
 		return output;		
 	}
 	void train(Vector<Double> inputs, Vector<Double> outputs, Integer howManyEpochs) throws Exception{
